@@ -83,9 +83,9 @@ Inspect candlesticks and volume with zoom, pan, and a crosshair. Toggle moving a
 
 **Daily / 1H** switches between completed daily and hourly candles. Hourly indicators and zones are calculated from hourly bars, with their own cache and refresh control.
 
-![Hourly candlestick chart with moving averages, support zones, volume, and RSI in the Polish interface](docs/screenshots/hourly-desktop.png)
+![Hourly candlestick chart with moving averages, support zones, volume, and RSI](docs/screenshots/hourly-desktop.png)
 
-*Hourly inspection in Polish. Assessments, scenarios, benchmark research, backtests, and exports continue to use completed daily bars. Hourly charts do not constitute a validated intraday strategy.*
+*Assessments, scenarios, benchmark research, backtests, and exports continue to use completed daily bars. Hourly charts do not constitute a validated intraday strategy.*
 
 ### Learn as you research
 
@@ -122,17 +122,6 @@ The **Earnings calendar** shows estimated company dates across **30-day** and **
 ![Earnings calendar showing estimated dates, a date range, source timestamps, and cached-data warnings](docs/screenshots/rookie-en-desktop-agenda.png)
 
 *Controlled calendar fixtures demonstrate estimated dates and failed-refresh warnings. Opening the calendar reads cached metadata; ordinary watchlist refresh updates it.*
-
-### English, Polish, and a responsive workspace
-
-Switch **ENG / PL** in the top bar. Navigation, learning panels, research tools, and Markdown reports follow the saved language choice. Source news, company names, and your own notes keep their original text; CSV headers remain stable.
-
-<details>
-<summary>View the Polish mobile interface</summary>
-
-<img src="docs/screenshots/rookie-pl-mobile-summary.png" alt="Polish mobile stock summary with conclusion, caution, and next observation" width="390">
-
-</details>
 
 ## Optional AI summaries
 

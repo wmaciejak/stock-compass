@@ -46,9 +46,6 @@ test("actual hourly candles, interval-local indicators, controls and daily resea
   await support.check();
   await page.getByLabel("Bands", { exact: true }).check();
   await page.getByLabel("Momentum panel").selectOption("rsi");
-  await page.getByRole("button", { name: "Polski", exact: true }).click();
-  await expect(page.locator(".hourly-notice")).toContainText("dziennych");
-  await expect(page.getByLabel("Wsparcie", { exact: true })).toBeChecked();
   expect(downloads).toBe(0);
   await page.locator(".price-chart").screenshot({
     path: path.resolve("../docs/screenshots/hourly-desktop.png"),
@@ -62,6 +59,10 @@ test("actual hourly candles, interval-local indicators, controls and daily resea
   await page.locator(".price-chart").screenshot({
     path: path.resolve("../docs/screenshots/hourly-narrow.png"),
   });
+  await page.getByRole("button", { name: "Polski", exact: true }).click();
+  await expect(page.locator(".hourly-notice")).toContainText("dziennych");
+  await expect(page.getByLabel("Wsparcie", { exact: true })).toBeChecked();
+  expect(downloads).toBe(0);
   await page
     .getByRole("button", { name: "Świece dzienne", exact: true })
     .click();
