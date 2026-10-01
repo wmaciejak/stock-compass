@@ -1,0 +1,37 @@
+{
+  "integration": "passed",
+  "instrument": {
+    "symbol": "MU",
+    "name": "Micron Technology, Inc.",
+    "exchange": "NMS",
+    "currency": "USD",
+    "instrument_type": "EQUITY",
+    "timezone": "America/New_York",
+    "synthetic": false
+  },
+  "provenance": {
+    "source": "yfinance / Yahoo Finance (unofficial)",
+    "retrieved_at": "2026-09-30T08:20:30.730425+00:00",
+    "last_completed_bar": "2026-09-29",
+    "expected_completed_bar": "2026-09-29",
+    "exchange_timezone": "America/New_York",
+    "price_basis": "split_dividend_adjusted",
+    "repair_flags": [],
+    "cache": false,
+    "synthetic": false,
+    "interval": "1d",
+    "requested_range": "5 years + 1 year warm-up",
+    "publication_allowance_minutes": 120
+  },
+  "quality": {
+    "actionable": true,
+    "stale": false,
+    "issues": [],
+    "missing_sessions": [],
+    "provisional_bars": 0,
+    "bars": 1513
+  },
+  "engine": "TA-Lib 0.7.1",
+  "benchmark_status": "available",
+  "bars": 1513
+}

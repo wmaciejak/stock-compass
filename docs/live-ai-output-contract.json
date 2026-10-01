@@ -1,0 +1,30 @@
+{
+  "verification": "Input-token counts only; no summary generation",
+  "captured_contexts": true,
+  "results": [
+    {
+      "symbol": "NBIS",
+      "model": "gpt-6-luna",
+      "input_tokens": 140691,
+      "max_output_tokens": 12000,
+      "total_reserved_tokens": 152691,
+      "request_token_budget": 190000,
+      "input_context_bytes": 344709,
+      "evidence_count": 1508,
+      "prompt_version": "stock-compass-ai-v4",
+      "schema_version": "stock-compass-ai-schema-v2"
+    },
+    {
+      "symbol": "MU",
+      "model": "gpt-6-luna",
+      "input_tokens": 177107,
+      "max_output_tokens": 12000,
+      "total_reserved_tokens": 189107,
+      "request_token_budget": 190000,
+      "input_context_bytes": 426432,
+      "evidence_count": 1506,
+      "prompt_version": "stock-compass-ai-v4",
+      "schema_version": "stock-compass-ai-schema-v2"
+    }
+  ]
+}

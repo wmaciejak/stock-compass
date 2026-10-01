@@ -1,0 +1,62 @@
+{
+  "checked_at": "2026-10-01T09:58:54.417956+00:00",
+  "model": "gpt-6-luna",
+  "results": [
+    {
+      "symbol": "NBIS",
+      "context_bytes": 344500,
+      "input_tokens": 140351,
+      "max_output_tokens": 12000,
+      "total_tokens": 152351,
+      "request_token_budget": 190000,
+      "rate_limit": 200000,
+      "histories": [
+        {
+          "path": "context.daily",
+          "bars": 487,
+          "indicator_bars": 32
+        },
+        {
+          "path": "context.benchmark",
+          "bars": 1513,
+          "indicator_bars": 32
+        },
+        {
+          "path": "context.hourly",
+          "bars": 294,
+          "indicator_bars": 32
+        }
+      ],
+      "evidence_refs": 1507,
+      "all_prices_and_research_preserved": true
+    },
+    {
+      "symbol": "MU",
+      "context_bytes": 426331,
+      "input_tokens": 176806,
+      "max_output_tokens": 12000,
+      "total_tokens": 188806,
+      "request_token_budget": 190000,
+      "rate_limit": 200000,
+      "histories": [
+        {
+          "path": "context.daily",
+          "bars": 1513,
+          "indicator_bars": 32
+        },
+        {
+          "path": "context.benchmark",
+          "bars": 1513,
+          "indicator_bars": 32
+        },
+        {
+          "path": "context.hourly",
+          "bars": 288,
+          "indicator_bars": 32
+        }
+      ],
+      "evidence_refs": 1506,
+      "all_prices_and_research_preserved": true
+    }
+  ]
+}

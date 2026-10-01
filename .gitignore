@@ -1,0 +1,40 @@
+# Local credentials and configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Personal research, downloaded data and runtime logs
+/data/
+*.sqlite
+*.sqlite3
+*.sqlite-wal
+*.sqlite-shm
+*.log
+
+# Dependencies, generated builds and test output
+.venv/
+node_modules/
+frontend/dist/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+*.tsbuildinfo
+frontend/test-results/
+frontend/playwright-report/
+
+# Local agent records, editor state and OS metadata
+.superpowers/
+.codex/
+.claude/
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

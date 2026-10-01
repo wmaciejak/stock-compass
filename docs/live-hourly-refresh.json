@@ -1,0 +1,50 @@
+{
+  "checked_at": "2026-10-01T09:25:01.308190+00:00",
+  "expected_completed_end": "2026-09-30T20:00:00+00:00",
+  "results": [
+    {
+      "symbol": "MU",
+      "passed": true,
+      "bars": 294,
+      "engine": "TA-Lib 0.7.1",
+      "source": "yfinance / Yahoo Finance (unofficial)",
+      "price_basis": "provider_native",
+      "retrieved_at": "2026-10-01T09:24:59.877602+00:00",
+      "last_completed_end": "2026-09-30T20:00:00+00:00",
+      "exchange_timezone": "America/New_York",
+      "quality": {
+        "stale": false,
+        "issues": [
+          "Provider-native hourly OHLC. Split/dividend adjustment is not independently verified; indicators are for chart inspection only."
+        ],
+        "missing_bars": [],
+        "provisional_bars": 0,
+        "bars": 294,
+        "expected_completed_bar": "2026-09-30T19:30:00+00:00"
+      },
+      "cached_reopen_matches": true
+    },
+    {
+      "symbol": "SPY",
+      "passed": true,
+      "bars": 294,
+      "engine": "TA-Lib 0.7.1",
+      "source": "yfinance / Yahoo Finance (unofficial)",
+      "price_basis": "provider_native",
+      "retrieved_at": "2026-10-01T09:25:01.264558+00:00",
+      "last_completed_end": "2026-09-30T20:00:00+00:00",
+      "exchange_timezone": "America/New_York",
+      "quality": {
+        "stale": false,
+        "issues": [
+          "Provider-native hourly OHLC. Split/dividend adjustment is not independently verified; indicators are for chart inspection only."
+        ],
+        "missing_bars": [],
+        "provisional_bars": 0,
+        "bars": 294,
+        "expected_completed_bar": "2026-09-30T19:30:00+00:00"
+      },
+      "cached_reopen_matches": true
+    }
+  ]
+}

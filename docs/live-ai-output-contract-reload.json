@@ -1,0 +1,10 @@
+{
+  "launcher_pid": 2453,
+  "ready": true,
+  "model": "gpt-6-luna",
+  "max_request_tokens": 190000,
+  "active_run": null,
+  "bundle": "index-DoQp6iRZ.js",
+  "all_sqlite_tables_preserved": true,
+  "no_generation_requested": true
+}
