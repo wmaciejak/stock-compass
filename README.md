@@ -1,71 +1,183 @@
 # Stock Compass
 
-A local workspace for learning stock analysis. React charts are backed by real TA-Lib calculations, versioned causal rules, Backtesting.py simulations, and SQLite. No login, broker account, cloud deployment, AI key or paid data subscription is required for the core app.
+**Research with perspective.** A local workspace for understanding stocks, testing ideas, and planning regular investing.
 
-Clone the repository before setup:
+Stock Compass brings charts, technical evidence, company context, backtests, and your research notes into one place. Start with a plain-language conclusion, inspect the evidence behind it, and record what would make you change your mind.
+
+**Runs locally · English / Polish · Offline demo · Optional AI summaries**
+
+![Stock overview showing a conclusion, main caution, and next observation for a fictional instrument](docs/screenshots/rookie-en-desktop-summary.png)
+
+*Screenshots use fictional instruments and controlled test data. They show the interface, not investment recommendations or personal research.*
+
+[Quick start](#quick-start) · [Features](#features) · [AI summaries](#optional-ai-summaries) · [Data and privacy](#data-and-privacy) · [Development](#development) · [Documentation](#documentation)
+
+## Quick start
+
+You need **Python 3.12** and **Node.js 20+** with npm. The repository selects Node **24** in `.nvmrc` and Python **3.12** in `.python-version`. On macOS with Homebrew:
+
+```bash
+brew install python@3.12 node
+```
+
+Clone, install, and start:
 
 ```bash
 git clone git@github.com:wmaciejak/stock-compass.git
 cd stock-compass
-```
-
-## Start on your Mac
-
-Prerequisites: Python **3.12** and Node.js **20+** with npm. Node **24** is selected in `.nvmrc` and CI; `.python-version` selects Python 3.12. For Homebrew users: `brew install python@3.12 node`. Installation needs internet access; the installed demo runs offline. The setup and launcher scripts also work on Linux.
-
-From this directory, run the setup command once:
-
-```bash
 ./scripts/setup.sh
-```
-
-Then start:
-
-```bash
 ./scripts/start.sh
 ```
 
-Open **http://127.0.0.1:8765**. Stop with **Ctrl+C**. The supervisor stops its child service. If the port is occupied, it explains how to choose another: `STOCK_COMPASS_PORT=8766 ./scripts/start.sh`. Docker is not needed.
+Open **http://127.0.0.1:8765**. Stop the app with **Ctrl+C**.
 
-`requirements.lock` pins the Python environment; `frontend/package-lock.json` pins npm dependencies. Setup installs TA-Lib from a binary wheel with its C library bundled. Source checkouts do not include installed dependencies or the built frontend; the setup command creates both.
+Setup installs the locked Python and npm dependencies and builds the frontend. TA-Lib installs from a binary wheel with its C library bundled. The scripts also support Linux. Installation requires internet access; the installed synthetic demo works offline. The core app requires no login, broker account, API key, paid data subscription, or Docker.
 
-Use **ENG / PL** in the top bar to switch between English and Polish. The choice is saved locally and applies to navigation, explanations, learning panels, research tools and Markdown reports. Switching languages does not download prices or change calculation results. Company names, sourced news and your own notes retain their original text; CSV headers stay stable.
+If the default port is busy:
 
-The top-bar **Auto-refresh** selector offers Off (default), 1, 5, 15 or 30 minutes. The preference is stored in this browser locally. Opening or reloading the site requests fresh daily data for every watchlist instrument and the benchmark. Each later timer interval does the same on any app page; a visible 1H chart also refreshes its hourly data. The first timed run waits a full interval after load. Hidden tabs pause automatic downloads; scheduled runs do not overlap. Watchlist rows show their source retrieval times. Manual refresh remains available. If an external provider is unavailable, cached data retain their original timestamp and quality restrictions. Daily analysis values change when the provider supplies new or revised completed bars; a current-session quote can change intraday. Neither has guaranteed real-time delivery. Refreshing a large watchlist at one-minute intervals may run into the provider's rate limits.
+```bash
+STOCK_COMPASS_PORT=8766 ./scripts/start.sh
+```
 
-During an open US session, the live watchlist and stock heading show a **current-session provider quote** and its change from the provider's previous close, both labeled provisional with an as-of time. This quote may be delayed and is shown only while it is recent and within a regular trading session. The completed daily close and date remain visible beside it. Technical labels, benchmark research, conditional levels and backtests still use completed daily bars. Demo and daily CSV imports have no current-session quote. If a quote is missing, old or its refresh fails, the display falls back to the labeled completed daily value.
+### Your first five minutes
 
-## Beginner view and planning
+1. Open the **Demo** workspace and select a fictional ticker such as `DEMO_TREND`.
+2. Read **Conclusion**, **Main caution**, and **Watch next**. Open the evidence to understand the reasoning.
+3. Explore the chart and **Indicators & learning**, then try a strategy in **Historical evidence**.
+4. Save a note or idea in **Research & sizing**, or open **Long-term planning** to explore a savings scenario.
+5. Switch to **Live research** when you want external market data. The starter tickers are editable examples, not suggested buys.
 
-New installations start in **Beginner** view. **Settings & data → Experience** switches between Beginner and Advanced; saved settings from older installations retain Advanced. **Preferred workspace** chooses whether startup opens stock research or long-term planning, independently of Demo/Live mode and research horizon. Both new pages are in the sidebar and the mobile navigation menu.
+## Features
 
-The beginner guide offers **Understand a stock** and **Plan regular investing**. Mark each step understood, go Back, Skip, or Resume later; **Restart beginner guide** is explicit in Settings. Progress survives reload and ENG/PL changes without changing saved notes or plans. Stock overviews lead with Conclusion, Main caution and Watch next. **Explore the evidence** opens the charts and technical details; the learning, backtest and research tabs remain available. The guide and explanations work with AI disabled.
+### A watchlist with reasons behind the ranking
 
-**Long-term planning** calculates a hypothetical savings scenario from your own starting amount, monthly contribution, whole years, assumed gross annual return and ongoing annual fee. Give the goal an optional name/target. **Load illustrative example** fills a draft; **Calculate scenario** shows results and **Save plan** persists inputs locally. Edited results are marked for recalculation, and invalid drafts do not overwrite a valid saved plan. USD/PLN/EUR/GBP label amounts without converting currencies or expanding the instrument research coverage.
+The research briefing puts your instruments, daily trend, setup assessment, benchmark context, and event coverage in one view. Rankings reflect transparent technical criteria within your watchlist. Each stock explains its assessment, the opposing evidence, and the next condition to watch.
 
-Python applies the effective annual return and proportional fee as monthly growth factors, then adds each contribution at the end of the month. Only displayed amounts are rounded. The chart and keyboard-scrollable annual table compare contributions and values before/after fees. Chart ticks use compact or scientific amounts to remain readable; the caption labels the currency and the table retains full displayed amounts. **Fee impact including foregone growth** is the difference between those paths. Returns may be negative. This constant-return approximation excludes taxes, inflation, transaction costs, FX movement and changing market prices; it assigns no probabilities or expected performance. ETF lessons explain holdings, diversification, index tracking, ongoing fees, distributions/reinvestment and currency exposure, with Investor.gov links.
+- Add and remove US-listed USD tickers, with separate Demo and Live workspaces.
+- Select a research horizon: **1–2 weeks**, **2–8 weeks**, **1–6 months**, or **6–12 months**.
+- Compare up to **four instruments** over matching session dates.
+- Use **SPY** as the default live benchmark or choose another in Settings & data.
+- See source timestamps, missing context, and restrictions alongside the results.
 
-## Cached earnings calendar
+<details>
+<summary>View the research briefing</summary>
 
-**Earnings calendar** shows 30-day or 90-day company earnings estimates for the current mode's watchlist, including same-day events and date ranges. All current provider dates are **Estimated**, with exchange-local calendar dates, source and original retrieval time; precise announcement time is unavailable. Opening the calendar or changing its window only reads cached metadata. Existing manual/startup/automatic watchlist refresh remains responsible for downloads.
+![Research briefing with a ranked synthetic watchlist, benchmark context, and an instrument chart](docs/screenshots/desktop-briefing.png)
 
-Coverage keeps unknown dates visible, identifies verified ETFs and synthetic examples as not applicable, and keeps known dates outside the window separate. Legacy dates derived from UTC remain unverified until a normal refresh; imported identities can also be unverified. Metadata older than 24 hours needs refresh, malformed/missing/future retrieval times have unknown freshness, and failed refreshes retain cached information with a warning. Offline mode can show cached coverage. An empty agenda does not establish absence of earnings risk, and freshness does not guarantee event accuracy.
+*Demo workspace captured during a refresh; the fictional watchlist is shown alongside its evidence.*
 
-## First research session
+</details>
 
-1. Start in the **Synthetic demo workspace**. DEMO_TREND and DEMO_VOLATILE are fictional instruments. Refresh the watchlist, open a stock and explore its reasoning. Add DEMO_RANGE to try another fixture.
-2. Switch to **Live research** for the editable starter list MU, TSM, VST and LULU. Open one or refresh the watchlist to download external prices through the unofficial yfinance adapter. These are examples to investigate, not predefined buys.
-3. Read the overview and next confirmation condition. Indicators & learning explains readings and common mistakes. Historical evidence runs either fixed strategy with editable costs against a matching buy-and-hold baseline.
-4. Use Research & sizing to keep notes, save an idea and snapshot, enter your own sizing inputs, and export Markdown or CSV. Record the idea's outcome later in the journal.
-5. Compare up to four instruments over matching session dates. The default live benchmark is SPY; change it in Settings & data.
-6. Choose a research horizon: 1–2 weeks, 2–8 weeks, 1–6 months or 6–12 months. The overview explains what each supports; backtests remain fixed daily strategies. Chart windows include 1W, 2W and 1M for shorter views. The Resistance / Opór checkbox shows zones when checked and removes them when unchecked, while keeping support and analysis intact.
-7. Select **Daily / 1H** above the detail chart for actual hourly candles. EMA 20 and the other chart indicators then use hourly bars. Independent **Support / Wsparcie** and **Resistance / Opór** checkboxes show their zones when checked, on either interval. Hourly data have a separate cache and refresh control; daily recommendations, strategy results and exports remain daily. Read the [hourly chart conventions](docs/HOURLY.md), including the limited history and unverified corporate-action basis of live hourly prices.
+### Interactive charts and real technical calculations
 
-Real prices need an external provider. yfinance is **not an official Yahoo integration**, does not guarantee service or real-time data, and is used here for personal research. Missing data never become synthetic real-ticker values. Data quality is evaluated against US equity sessions and a two-hour publication allowance; stale or critically incomplete data block action labels and strategy results.
+Inspect candlesticks and volume with zoom, pan, and a crosshair. Toggle moving averages, Bollinger Bands, support, and resistance; explore momentum and volatility without leaving the stock view.
 
-## CSV and offline use
+| Evidence | What you can inspect |
+| --- | --- |
+| Trend | SMA 20 / 50 / 200, EMA 20, and completed-week context |
+| Momentum | RSI 14, MACD, and ADX 14 |
+| Volatility | ATR 14 and Bollinger Bands |
+| Volume | Volume context and on-balance volume |
+| Structure | Support/resistance zones and conditional scenario levels |
+| Relative strength | Performance against the selected benchmark |
 
-Settings & data offers file validation and a preview before explicit import. Required columns:
+**Daily / 1H** switches between completed daily and hourly candles. Hourly indicators and zones are calculated from hourly bars, with their own cache and refresh control.
+
+![Hourly candlestick chart with moving averages, support zones, volume, and RSI in the Polish interface](docs/screenshots/hourly-desktop.png)
+
+*Hourly inspection in Polish. Assessments, scenarios, benchmark research, backtests, and exports continue to use completed daily bars. Hourly charts do not constitute a validated intraday strategy.*
+
+### Learn as you research
+
+New installations start in **Beginner** view. The stock overview leads with a readable conclusion and the most important caution; **Explore the evidence** opens the technical details.
+
+A resumable guide helps you **Understand a stock** or **Plan regular investing**. Indicator explanations describe both the reading and common interpretation mistakes. Switch to Advanced in Settings & data when you want the fuller research view. Guide progress and settings survive restarts.
+
+### Test an idea against historical evidence
+
+Run the fixed **crossover** or **breakout** strategy with editable commission, spread, and starting cash. Inspect results against a matching buy-and-hold baseline, then return to the assumptions that produced them.
+
+Backtests use causal daily rules and show their provenance. Stale, corrupted, insufficient, or unknown-basis data block simulation rather than produce a misleading result. Historical performance does not establish future returns; changing the research horizon does not change the fixed strategy definitions.
+
+### Keep your research and sizing together
+
+Use **Research & sizing** to write notes, save an idea, capture an analysis snapshot, and calculate position sizing from your own entry, stop, account amount, and risk input. The app does not infer your holdings or risk budget.
+
+Review ideas and outcomes in the **Research journal**. Export a **Markdown research report** in the selected language or **CSV price bars** for further analysis. Removing a ticker from the watchlist retains its saved research.
+
+### Explore long-term investing scenarios
+
+Model a starting amount, regular monthly contribution, time horizon, assumed annual return, and ongoing fee. Compare contributions with hypothetical values before and after fees, inspect an annual table, and save the plan locally.
+
+![Long-term planning with editable assumptions, a contributions-versus-growth chart, fee impact, and annual values](docs/screenshots/rookie-en-desktop-result.png)
+
+*Illustrative inputs, not a recommended return. Currency choices label amounts without converting them.*
+
+The calculation applies monthly growth factors and adds contributions at the end of each month. Fee impact includes foregone growth. The model excludes taxes, inflation, transaction costs, FX movement, and changing returns. Built-in ETF lessons explain diversification, index tracking, fees, distributions, and currency exposure.
+
+### Keep earnings uncertainty visible
+
+The **Earnings calendar** shows estimated company dates across **30-day** and **90-day** windows. It distinguishes upcoming dates, unknown coverage, stale metadata, and instruments where company earnings are not applicable.
+
+![Earnings calendar showing estimated dates, a date range, source timestamps, and cached-data warnings](docs/screenshots/rookie-en-desktop-agenda.png)
+
+*Controlled calendar fixtures demonstrate estimated dates and failed-refresh warnings. Opening the calendar reads cached metadata; ordinary watchlist refresh updates it.*
+
+### English, Polish, and a responsive workspace
+
+Switch **ENG / PL** in the top bar. Navigation, learning panels, research tools, and Markdown reports follow the saved language choice. Source news, company names, and your own notes keep their original text; CSV headers remain stable.
+
+<details>
+<summary>View the Polish mobile interface</summary>
+
+<img src="docs/screenshots/rookie-pl-mobile-summary.png" alt="Polish mobile stock summary with conclusion, caution, and next observation" width="390">
+
+</details>
+
+## Optional AI summaries
+
+**Summarize with AI** is available in ticker rows and stock headings. An explicit generation asks OpenAI for an evidence-based recommendation, a near-term outlook, and **base, bullish, and bearish scenarios**, with confirmation conditions, counterarguments, limitations, and evidence references.
+
+The default configured model is **`gpt-6-luna`**. The backend captures the selected ticker's available context: daily and hourly history, benchmark research, technical readings, available company/news context, saved backtests, snapshots, notes, journal entries, and relevant drafts or sizing inputs.
+
+![AI summary panel with a recommendation and expandable evidence references](docs/screenshots/ai-desktop.png)
+
+*The panel above uses a controlled test response to demonstrate the layout, not a live model forecast.*
+
+To enable it, copy `.env.example` to `.env` if you have not already created local configuration, then set:
+
+```dotenv
+OPENAI_API_KEY=your-api-key
+STOCK_COMPASS_AI_ENABLED=1
+STOCK_COMPASS_AI_MODEL=gpt-6-luna
+STOCK_COMPASS_OFFLINE=0
+```
+
+Restart the app after changing configuration. **AI is optional, disabled by default, and unavailable in offline mode.** Core assessments and learning tools work without it.
+
+**Generation sends market and personal research context to OpenAI and is billed to your API account.** Navigation and auto-refresh do not generate summaries. Regenerate can incur another charge. The backend counts tokens before uncached generation and enforces a configurable request budget; requests can still hit account limits.
+
+All available price bars and research are retained. Derived historical indicators cover the latest **32 completed bars**, rounded to **six decimal places**; current metrics and trading levels retain full precision. Saved results can be reused for matching context. The backend validates structured output and evidence references, but that does not guarantee the interpretation is correct.
+
+See [AI setup, context, billing, and recovery](docs/AI.md) for all controls and error diagnostics.
+
+## Data and privacy
+
+### Three ways to use market history
+
+| Mode | Source | When to use it |
+| --- | --- | --- |
+| Synthetic demo | Reproducible fictional price histories | Learn the interface and test workflows offline |
+| Live research | yfinance / Yahoo Finance, unofficial | Inspect external US equity data and available company context |
+| CSV import | Your supplied daily OHLCV history | Research a declared dataset with explicit adjustment conventions |
+
+Live prices may be delayed, unavailable, or revised. A recent regular-session provider quote is labeled **provisional** and kept separate from the completed daily close. Indicators, scenarios, and strategy results remain based on completed daily bars. Missing real-ticker data never become invented synthetic prices.
+
+Manual refresh is available throughout the workspace. Optional auto-refresh runs every **1, 5, 15, or 30 minutes**, pauses in hidden tabs, and avoids overlapping scheduled runs. Provider failures retain the original cache timestamps and warnings. Frequent refresh of large watchlists can encounter provider limits.
+
+### Import CSV or work offline
+
+Settings & data validates and previews a CSV before explicit import:
 
 ```csv
 Date,Open,High,Low,Close,Volume
@@ -73,19 +185,35 @@ Date,Open,High,Low,Close,Volume
 2026-09-29,101,103,100,102,1200000
 ```
 
-These two rows illustrate the format only, not a real instrument. Provide the symbol, name, US exchange, USD currency, and OHLC adjustment convention. Unknown or unadjusted basis allows inspection but blocks actionable analysis/backtests. Fewer than 200 sessions limits scope; at least 220 are needed for simulation. Split-only CSV returns exclude dividends. Imported identity is user-declared, not provider-verified. An import explicitly replaces the whole source series; it never stitches providers. Built-in demo fixture names cannot be overwritten.
+These rows illustrate the format only. Supply the symbol, name, US exchange, USD currency, and adjustment basis. Imports replace the entire source series. Unknown or unadjusted basis allows inspection but blocks actionable analysis and backtests; simulations require at least **220 sessions**. Built-in demo fixtures cannot be overwritten.
 
-For a synthetic CSV use a new **DEMO_** name. For real symbols supply actual price history. Set `STOCK_COMPASS_OFFLINE=1` in an optional `.env` (copy `.env.example`) to disable external downloads while retaining CSV, demo and cached history. Demo always uses the synthetic DEMO_MARKET benchmark, never invented SPY prices. Its fixture ends on September 29, 2026 and is a fixed historical laboratory, exempt from live freshness, with the date displayed.
+Set `STOCK_COMPASS_OFFLINE=1` in `.env` to disable external downloads while keeping demo, CSV, and cached history available. The demo uses its own fictional `DEMO_MARKET` benchmark and fixed historical dates.
 
-## Persistence and privacy
+### What stays on your machine
 
-SQLite: `data/compass.sqlite`. It keeps watchlists, settings, guide progress, saved planning inputs, user notes, raw provider frames, context, analysis snapshots, journal entries, rule versions and backtest configurations/results. Restarting preserves them. Back up this file with the app stopped. Removing a watchlist item does not delete research records. No personal account size is inferred; the optional calculator only uses values you enter. Core assessments are deterministic and local.
+Research is stored in **`data/compass.sqlite`**: watchlists, settings, notes, journal entries, plans, cached data, snapshots, backtests, and captured AI results/context. Back up the database with the app stopped.
 
-Optional **Summarize with AI** buttons in ticker rows and stock headings use **gpt-6-luna** for an evidence-based recommendation and conditional outlook. Enable with `OPENAI_API_KEY` and `STOCK_COMPASS_AI_ENABLED=1` in `.env`, then restart. An explicit generation sends the ticker's market context, saved research and available drafts/sizing inputs to OpenAI and uses your API quota. Captured context and results are saved locally. The service is disabled by default and in offline mode; ordinary navigation and auto-refresh never generate AI summaries. Read the [AI setup, context, billing and recovery conventions](docs/AI.md).
+**The entire `data/` directory and `.env` are excluded from Git.** Logs, installed dependencies, builds, and local agent records are excluded too. The repository includes fictional test fixtures and documentation screenshots.
 
-Backend environment settings stay in `.env`; no provider keys enter frontend bundles or exports. Both services bind to loopback; production uses one port. Mutating API requests reject foreign browser origins and the backend restricts Host headers. This is a single-user local app, not a multi-user internet service.
+The launcher binds to loopback. This is a single-user local application; the API has no user authentication and is not designed for public hosting. Browser-origin and Host checks provide additional restrictions. Protect your local credential/database files with appropriate filesystem permissions. Live research contacts external data providers; explicitly requested AI generation sends context to OpenAI.
 
-## Verification
+## Development
+
+| Layer | Technology |
+| --- | --- |
+| Interface | React, TypeScript, Vite, Lucide |
+| Charts | TradingView Lightweight Charts |
+| API and validation | FastAPI, Pydantic, Uvicorn |
+| Analysis | pandas, NumPy, TA-Lib |
+| Historical simulation | Backtesting.py |
+| Storage | SQLite |
+| Market data | yfinance and CSV adapter |
+| Optional AI | OpenAI Python SDK and Responses API |
+| Verification | pytest, Playwright, GitHub Actions |
+
+Python dependencies are pinned in `requirements.lock`; frontend dependencies are locked in `frontend/package-lock.json`.
+
+After setup, run the checks:
 
 ```bash
 .venv/bin/python -m pytest -q
@@ -93,7 +221,7 @@ npm run build --prefix frontend
 npm test --prefix frontend
 ```
 
-Browser tests start a separate offline service on port 8767 and use a fresh database in the operating system's temporary directory for each invocation. Installed Google Chrome is used on macOS when present; other environments use Playwright's Chromium. Install it before the first browser run:
+Browser tests use installed Google Chrome on macOS when available; otherwise install Playwright's Chromium first:
 
 ```bash
 cd frontend
@@ -101,22 +229,21 @@ npx playwright install chromium
 cd ..
 ```
 
-On Linux, `npx playwright install --with-deps chromium` also installs system dependencies. Set `COMPASS_CHROME` to a Chromium executable or `COMPASS_TEST_DB` to an explicit disposable database path when needed. Browser tests keep AI disabled and clear the API key. Tests cover ticker persistence, chart controls with no new provider request, both strategies, learning panels, journal, sizing, exports, CSV and provider errors. Screenshots are in `docs/screenshots/`.
+On Linux use `npx playwright install --with-deps chromium`. Browser tests start an isolated offline service on port **8767**, use a fresh temporary database, and disable AI. `COMPASS_CHROME` selects a browser executable; `COMPASS_TEST_DB` selects an explicit disposable database path.
 
-The AI output contract verification passed **216 backend tests**, **62 browser workflows** and the production build. [The verification record](docs/VERIFICATION.md) documents checks and limits. The AI workflows use controlled responses and make no paid calls. Tests use disposable databases and do not seed saved user research. Local agent logs and source snapshots are excluded from Git.
+The recorded baseline is **216 backend tests**, **62 browser workflows**, and a successful production build. GitHub Actions is configured to run setup, backend tests, build, and browser checks on Ubuntu for pushes to `main` and pull requests, without paid AI calls. See [verification details and limitations](docs/VERIFICATION.md) and [contribution instructions](CONTRIBUTING.md).
 
-GitHub Actions runs the locked setup, backend suite, production build and browser suite on Ubuntu for pushes to `main` and pull requests. It uses Python 3.12, Node 24, an isolated database, offline market data and disabled AI. Git contains source, reproducible fictional fixtures, lockfiles, documentation and demo screenshots. `.env`, the entire `data/` directory, dependency folders, generated builds and local agent records are ignored. See [contribution instructions](CONTRIBUTING.md) and [repository preparation](docs/GITHUB.md).
+## Documentation
 
-With the normal app running, `.venv/bin/python scripts/smoke_live.py` performs a **separate real-data check**, records `docs/live-smoke.json`, and fails on an outage. It never counts a fixture as live success.
-Run `.venv/bin/python scripts/smoke_hourly.py` for the separate MU/SPY hourly check, recorded in `docs/live-hourly-smoke.json`.
+| Guide | Covers |
+| --- | --- |
+| [Data conventions](docs/DATA.md) | Adjusted prices, completed sessions, cache, freshness, and unavailable states |
+| [Strategy rules](docs/RULES.md) | Causal signals, execution assumptions, sizing, gaps, and evaluation |
+| [Hourly charts](docs/HOURLY.md) | Hourly history, separate indicators, and adjustment limitations |
+| [AI summaries](docs/AI.md) | Context, configuration, token budgets, billing, and recovery |
+| [Provider notes](docs/PROVIDERS.md) | Data-source limitations and extension points |
+| [Verification](docs/VERIFICATION.md) | Recorded checks and remaining limits |
+| [Contributing](CONTRIBUTING.md) | Local workflow and project conventions |
+| [Dependency licenses](docs/LICENSES.md) and [notice](NOTICE) | Third-party licensing and TradingView attribution |
 
-## Read the conventions
-
-- [Data conventions](docs/DATA.md): native data, adjusted prices, sessions, cache and unavailable states.
-- [Strategy rules](docs/RULES.md): exact causal definitions, sizing, execution, gaps and evaluation.
-- [Provider investigation](docs/PROVIDERS.md): current free-plan limitations and licensed extension point.
-- [Optional AI summaries](docs/AI.md): configuration, full context, model, billing and saved-result recovery.
-- [Dependency licenses](docs/LICENSES.md), [TradingView notice](NOTICE).
-- [Implementation checklist](docs/PROGRESS.md).
-
-The heuristic assessment is research triage, not a profit probability or personalized suitability recommendation. Historical performance is not a forecast. The app can validly conclude that no current candidate qualifies. Adjusted-price simulation is an economic research approximation, not a reconstruction of historical executable dollar prices.
+Stock Compass supports research and education. Its heuristic scores are not profit probabilities or personalized suitability assessments. Historical performance and hypothetical savings scenarios do not predict future returns. A conclusion that no setup qualifies is a valid result.
