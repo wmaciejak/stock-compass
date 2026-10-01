@@ -83,7 +83,7 @@ Inspect candlesticks and volume with zoom, pan, and a crosshair. Toggle moving a
 
 **Daily / 1H** switches between completed daily and hourly candles. Hourly indicators and zones are calculated from hourly bars, with their own cache and refresh control.
 
-![Hourly candlestick chart with moving averages, support zones, volume, and RSI](docs/screenshots/hourly-desktop.png)
+![Hourly candlestick chart with moving averages, support zones, volume, and RSI](docs/screenshots/hourly-en-desktop.png)
 
 *Assessments, scenarios, benchmark research, backtests, and exports continue to use completed daily bars. Hourly charts do not constitute a validated intraday strategy.*
 

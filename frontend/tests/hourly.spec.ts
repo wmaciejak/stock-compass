@@ -48,7 +48,7 @@ test("actual hourly candles, interval-local indicators, controls and daily resea
   await page.getByLabel("Momentum panel").selectOption("rsi");
   expect(downloads).toBe(0);
   await page.locator(".price-chart").screenshot({
-    path: path.resolve("../docs/screenshots/hourly-desktop.png"),
+    path: path.resolve("../docs/screenshots/hourly-en-desktop.png"),
   });
   await page.setViewportSize({ width: 390, height: 844 });
   expect(
@@ -57,7 +57,7 @@ test("actual hourly candles, interval-local indicators, controls and daily resea
     ),
   ).toBe(true);
   await page.locator(".price-chart").screenshot({
-    path: path.resolve("../docs/screenshots/hourly-narrow.png"),
+    path: path.resolve("../docs/screenshots/hourly-en-narrow.png"),
   });
   await page.getByRole("button", { name: "Polski", exact: true }).click();
   await expect(page.locator(".hourly-notice")).toContainText("dziennych");
